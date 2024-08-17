@@ -1,70 +1,81 @@
-# Getting Started with Create React App
+Documentation for setting up, running, and testing the application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1. Overview
 
-## Available Scripts
+This application allows users to input multiple URLs and fetch metadata (title, description, and image) from those URLs. The frontend is built using React (tolstoy-task-client), while the backend uses Node.js with Express (tolstoy-task-server). Axios is utilized for HTTP requests, and Cheerio is used to parse HTML and extract metadata.
 
-In the project directory, you can run:
+2. Setup
 
-### `npm start`
+2.1 Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Node.js (v14 or higher)
+npm or yarn
+React (for frontend)
+Express (for backend)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2.2 Cloning the repositories
 
-### `npm test`
+Clone the frontend repository:
+git clone https://github.com/ilyalivy/tolstoy-task-client.git
+cd tolstoy-task-client
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Clone the backend repository:
+git clone https://github.com/ilyalivy/tolstoy-task-server.git
+cd tolstoy-task-server
 
-### `npm run build`
+2.3 Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Install dependencies for the frontend:
+cd tolstoy-task-client
+npm install
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Install dependencies for the backend:
+cd tolstoy-task-server
+npm install
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Running the application
 
-### `npm run eject`
+3.1 Start the backend server
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Navigate to the backend directory and start the server:
+cd tolstoy-task-server
+npm start
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The backend will run on http://localhost:3001.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3.2 Start the frontend application
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Navigate to the frontend directory and start the React application:
+cd tolstoy-task-client
+npm start
 
-## Learn More
+The frontend will run on http://localhost:3000.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+4. Testing the application
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+4.1 Running frontend tests
 
-### Code Splitting
+The frontend tests are written using Jest and Testing Library. To run the tests:
+cd tolstoy-task-client
+npm test
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+4.2 Running backend tests
 
-### Analyzing the Bundle Size
+The backend tests are written using Jest and Supertest. To run the tests:
+cd tolstoy-task-server
+npm test
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+5. Design choices and trade-offs
 
-### Making a Progressive Web App
+5.1 Frontend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Component structure: The application is divided into small, manageable components. MultiURLForm is the main component responsible for handling user input, form submission, and displaying the fetched metadata.
+Validation: Basic validation is included to ensure that users provide at least three URLs before submitting the form. Additional validation checks the URL format before sending requests to the backend.
+Error Handling: Network errors and invalid URLs are handled gracefully, displaying appropriate error messages to the user.
+Trade-offs:
+    Limited URL Validation: The current setup validates URLs but doesn’t check if the URLs point to actual web pages until they are sent to the backend. This decision simplifies the frontend code but moves the responsibility to the backend.
 
-### Advanced Configuration
+5.2 Backend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Security: The backend includes middleware like xss-clean to sanitize input and express-rate-limit to prevent abuse by limiting the number of requests. express-rate-limit and CSRF protection are conditionally applied in production environments.
+Error handling: The backend handles various errors, including network issues and invalid URLs, returning detailed error messages to the frontend.
