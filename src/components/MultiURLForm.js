@@ -44,7 +44,7 @@ const MultiURLForm = () => {
             console.log('ValidUrls', validUrls);
 
             const response = await axios.post(
-                'http://localhost:3001/fetch-metadata',
+                'https://tolstoy-task-server.vercel.app/fetch-metadata',
                 {
                     urls: validUrls,
                 }
