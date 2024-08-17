@@ -73,7 +73,7 @@ const MultiURLForm = () => {
     };
 
     return (
-        <div className="flex flex-col gap-2 w-full justify-center items-center mt-4">
+        <div className="flex flex-col gap-2 w-full justify-center items-center my-8">
             <div className="text-[24px] font-bold flex flex-col">
                 Tolstoy home task
             </div>
