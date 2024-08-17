@@ -139,7 +139,7 @@ const MultiURLForm = () => {
                                         <p>{data.error}</p>
                                     </div>
                                 ) : (
-                                    <div className="flex flex-col gap-4 w-[300px] h-[300px] rounded-md border border-gray-200 shadow-md px-8 py-4">
+                                    <div className="flex flex-col gap-4 w-[300px] min-h-[300px] rounded-md border border-gray-200 shadow-md px-8 py-4">
                                         <h4>{data.title}</h4>
                                         {data.image && (
                                             <img
